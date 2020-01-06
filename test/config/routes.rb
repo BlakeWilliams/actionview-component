@@ -9,4 +9,5 @@ Dummy::Application.routes.draw do
   get :variants, to: "integration_examples#variants"
   get :cached, to: "integration_examples#cached"
   get :render_check, to: "integration_examples#render_check"
+  get :controller_inline, to: "integration_examples#controller_inline"
 end
