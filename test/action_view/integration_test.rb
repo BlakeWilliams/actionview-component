@@ -14,13 +14,7 @@ class IntegrationTest < ActionDispatch::IntegrationTest
     get "/controller_inline"
     
     assert_response :success
-    assert_html_matches <<~HTML, response.body
-      <span><div>
-        Foo
-        bar
-      </div>
-      </span>
-    HTML
+    assert_select("div", "Foo\n  bar")
   end
 
   test "rendering component with content" do
