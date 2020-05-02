@@ -504,6 +504,13 @@ class ViewComponentTest < ViewComponent::TestCase
     assert_selector("p", text: "On sale", count: 1)
   end
 
+  def test_renders_labels_with_block_correctly
+    render_inline(FormComponent.new)
+
+    assert_selector("form > div > label > input")
+    refute_selector("form > div > input")
+  end
+
   private
 
   def modify_file(file, content)

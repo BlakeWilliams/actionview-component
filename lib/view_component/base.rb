@@ -60,10 +60,15 @@ module ViewComponent
 
       before_render_check
 
-      if render?
-        send(self.class.call_method_name(@variant))
-      else
-        ""
+      @view_context.with_child_renderer(self) do
+        @view_context.with_output_buffer ActionView::OutputBuffer.new do
+          if render?
+            content = send(self.class.call_method_name(@variant))
+            return content
+          else
+            ""
+          end
+        end
       end
     ensure
       @current_template = old_current_template
@@ -202,15 +207,14 @@ module ViewComponent
         line_number =
           if ActionView::Base.respond_to?(:annotate_template_file_names) &&
             ActionView::Base.annotate_template_file_names
-            -2
-          else
             -1
+          else
+            0
           end
 
         templates.each do |template|
           class_eval <<-RUBY, template[:path], line_number
             def #{call_method_name(template[:variant])}
-              @output_buffer = ActionView::OutputBuffer.new
               #{compiled_template(template[:path])}
             end
           RUBY
