@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:BlakeWilliams/rails.git
+  remote: https://github.com/BlakeWilliams/rails.git
   revision: ad06b76ae6dd41ac9c137e339cc70353a9c3c105
   branch: blakewilliams/nested-render-patch
   specs:
