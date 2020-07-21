@@ -315,6 +315,16 @@ class ViewComponentTest < ViewComponent::TestCase
     assert_empty WrapperComponent.slots
   end
 
+  def test_component_with_slot_dsl
+    render_inline(SlotDslComponent.new) do |component|
+      component.slot(:title, classes: "font-large") do
+        "This is my title!"
+      end
+    end
+
+    assert_selector(".font-large", text: "This is my title")
+  end
+
   def test_renders_helper_method_through_proxy
     render_inline(HelpersProxyComponent.new)
 
